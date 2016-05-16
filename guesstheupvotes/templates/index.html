@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script type='text/javascript'> 
+			$(document).ready(function(){
+				var runningscore = {{ runningscore }};
+				var attempts = {{ attempts }};
+				var url = 'http://guesstheupvotes.herokuapp.com/?runningscore='+runningscore+'&attempts='+attempts;
+				$('#next').attr('href', url);
+			})
+		</script>
+	</head>
+
+	<body>
+		<h1>Comment</h1>
+		{% autoescape off %}
+		{{ listing.comment }}
+		{% endautoescape %}
+
+		{% if predicted == False %}
+		<form class="form-inline global-search" method='GET'>
+			<div class="form-group">
+				<input id="input" type="text" name="prediction" class="form-control" placeholder="Predict a score">
+				<input type="hidden" name="permalink" value="{{ listing.permalink }}">
+				<input type="hidden" name="runningscore" value="{{ runningscore }}">
+				<input type="hidden" name="attempts" value="{{ attempts }}">
+			</div>
+			<button type="submit" class="btn btn-info"> Go! </button>
+		</form>
+		{% endif %}
+
+		{% if predicted %}
+			{% load mathfilters %}
+			<h1>Your score</h1>
+			<p>Correct number of upvotes is: {{ listing.score }}</p>
+			<p>Your total score is {{ runningscore }} out of {{ attempts|mul:"100" }}</p>
+			<a id='next'>Next</a>
+		{% endif %}
+	</body>
+</html>
