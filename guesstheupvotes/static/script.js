@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 $(document).on('click','#next', function(){
 	$.ajax({
-		data: {attempt: attempt},
+		data: {prediction: 0, attempt: attempt, truth: 1},
 		dataType: 'json',
 		success: function(output) {
 			$('.comment').html(output.comment);
@@ -17,7 +17,6 @@ $(document).on('click','#next', function(){
 				$('#input').focus(); 
 			});
 			attempt += 1;
-			console.log(attempt-1);
 		},
 		error: function(output) {
 			console.log(output);

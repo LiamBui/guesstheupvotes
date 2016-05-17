@@ -27,10 +27,14 @@ def index(request):
 				listing['permalink'] = comment.permalink
 				output.append(listing)
 			return render_to_response('index.html',{'listing': output[0]})
-		else:
+		elif not request.GET.get('truth'):
 			attempt = int(request.GET.get('attempt'))
 			return HttpResponse(json.dumps(output[attempt]), content_type="application/json")
 	else:
-		attempt = int(request.GET.get('attempt'))
-		return HttpResponse(json.dumps(output[attempt-1]), content_type="application/json")
+		if request.GET.get('truth'):
+			attempt = int(request.GET.get('attempt'))
+			return HttpResponse(json.dumps(output[attempt]), content_type="application/json")
+		else:
+			attempt = int(request.GET.get('attempt'))
+			return HttpResponse(json.dumps(output[attempt-1]), content_type="application/json")
 
