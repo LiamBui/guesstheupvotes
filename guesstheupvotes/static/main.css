@@ -1,0 +1,16 @@
+
+.left-container {
+	float: left;
+	width: 48%;
+	padding: 1%;
+}
+
+.left-container div {
+	margin: auto;
+}
+
+.right-container {
+	float: right;
+	width: 48%;
+	padding: 1%;
+}
